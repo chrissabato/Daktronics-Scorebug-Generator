@@ -1,6 +1,6 @@
 # Daktronics Scorebug Generator
 
-These python scripts will generate a png scorebug from te RTD data taken from an Daktronics All Sport 5000 controller.
+These python scripts will generate a png scorebug from the RTD data taken from a Daktronics All Sport 5000 controller. Original parsing code by [@fimion](https://github.com/fimion)
 
 ## Files
 ### scoreboard-test.py
