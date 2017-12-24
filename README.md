@@ -18,7 +18,7 @@ This is the full file, this will parse the serial data and create the scorebug p
 Use a DB25/M to DB9/F Null modem cable to connect to a serial port on you computer. Set you COM port to the following settings.
 * **Bits persecond:** 19200
 * **Data bits:** 8
-* **Parity:* None
+* **Parity:** None
 * **Stop bits:** 1
 * **Flow controll:** None
 
