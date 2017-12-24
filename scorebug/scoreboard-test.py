@@ -1,3 +1,5 @@
+
+
 # import the scoreboard function
 from default import scoreboard
 
@@ -5,12 +7,12 @@ from default import scoreboard
 FolderLoc = "D:\\GitHub\\Daktronics-Scorebug-Generator\\scorebug\\"
 
 
+dak = {} #define dak to take the sample data
+
 # ************************************************************************************
 # Dynampic PNG Variables
 # These are the fields that will be poputated by the scoreboard console
 # ************************************************************************************
-
-dak = {}
 
 dak['Home Team Score']= '00'
 dak['Home Time Outs Left - Total'] = '3'

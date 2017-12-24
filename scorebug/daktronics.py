@@ -1,10 +1,10 @@
 import serial
 class Daktronics(object):
-    def __init__(self, sport, ser=None):
+    def __init__(self, sport, com=None):
         if ser != None:
-            self.Serial = ser
+            elf.Serial = serial.Serial(com, 19200)
         else:
-            self.Serial = serial.Serial("COM7", 19200)
+            self.Serial = serial.Serial("COM1", 19200)
         self.header = b''
         self.code = b''
         self.rtd = b''
