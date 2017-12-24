@@ -1,3 +1,11 @@
+# //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# Title: scoredata
+# Author: Alex Riviere (github.com/fimion)
+# Date: 2017
+# Availability: https://github.com/chrisdeely/scoredata/blob/master/python/daktronics.py
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
 import serial
 class Daktronics(object):
     def __init__(self, sport, com=None):
