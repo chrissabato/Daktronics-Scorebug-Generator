@@ -1,17 +1,20 @@
 from daktronics import Daktronics
-
+import time, config
 # import the scoreboard function
 from default import scoreboard
 
 # Define COM Port
-COMPort = "COM7"
+COMPort = "COM3"
 
-#dak = Daktronics("basketball")
 dak = Daktronics("basketball", COMPort)
+
 
 while True:
     try: 
         dak.update()
-        scoreboard(dak,FolderLoc,True)
-    except:
+        scoreboard(dak)
+    except KeyboardInterrupt:
+        print("--------------------")
+        print("-- Program Halted --")
+        print("--------------------")
         break

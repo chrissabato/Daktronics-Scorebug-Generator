@@ -1,13 +1,14 @@
 {
     "Venue":"Cone Field House",
     "ClockBackgroundColor":"#444444",
-    "NetworkLogo":"cctv.png",
+    "NetworkLogo":"nwc.png",
     "HomeTeamName": "Willamette",
     "HomeTeamRank": "",
     "HomeTeamColor": "#791716",
     "HomeTeamColor2": "#c0ac7e",
-    "AwayTeamName": "Wisconsin-Oshkosh",
-    "AwayTeamRank": "4",
-    "AwayTeamColor": "#fdb728",
-    "AwayTeamColor2": "#000000"
+    "AwayTeamName": "Trinity",
+    "AwayTeamRank": "",
+    "AwayTeamColor": "#bbbbbb",
+    "AwayTeamColor2": "#90292b",
+    "UseRoster":"True"
 }

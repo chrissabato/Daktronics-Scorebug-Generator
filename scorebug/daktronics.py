@@ -9,8 +9,8 @@
 import serial
 class Daktronics(object):
     def __init__(self, sport, com=None):
-        if ser != None:
-            elf.Serial = serial.Serial(com, 19200)
+        if com != None:
+            self.Serial = serial.Serial(com, 19200)
         else:
             self.Serial = serial.Serial("COM1", 19200)
         self.header = b''

@@ -1,7 +1,7 @@
 
 
 # import the scoreboard function
-from cctv import scoreboard
+from default import scoreboard
 
 
 
@@ -32,8 +32,8 @@ dak['Main Clock Time [mm:ss/ss.t]'] = '10:00'
 dak['Shot Clock Time'] = '9'
 dak['Time Out Time'] = ''
 
-dak['Home Player-Foul-Points']='00-00-00'
-dak['Guest Player-Foul-Points']='00-00-00'
+dak['Home Player-Foul-Points']=' 20- 4-00'
+dak['Guest Player-Foul-Points']=' 34- 1-00'
 dak['Player-Foul']='000'
 dak['Player-Foul-Points']='00000'
 
@@ -41,7 +41,7 @@ ShowPlayerFoul = True
 
 # ************************************************************************************
 
-scoreboard(dak,ShowPlayerFoul,True)
+scoreboard(dak)
 
 
 

@@ -3,11 +3,11 @@
 # Scoreboard Creation Function
 # ************************************************************************************
 # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-import json,re 
+import json,re,datetime,config,time
 from PIL import Image, ImageDraw, ImageFont
 
-def scoreboard(dak,ShowPlayerFoul=False,FullConsoleDetails = False):
-  
+def scoreboard(dak):
+
   # ****************************
   # Dynampic PNG Variables
   # ****************************
@@ -32,10 +32,11 @@ def scoreboard(dak,ShowPlayerFoul=False,FullConsoleDetails = False):
   TimeOutClock = dak['Time Out Time']
   TimeOutClock = TimeOutClock.strip().rjust(2,'0')
 
-  HomePlayerFoulPoints = dak['Home Player-Foul-Points']
-  AwayPlayerFoulPoints = dak['Guest Player-Foul-Points']
-  PlayerFoul = dak['Player-Foul']
-  PlayerFoulPoints = dak['Player-Foul-Points']
+  HomePlayerFoulPoints = dak['Home Player-Foul-Points'].strip()
+  AwayPlayerFoulPoints = dak['Guest Player-Foul-Points'].strip()
+
+
+
 
   #Define Colors
   font_Color = "#ffffff"
@@ -54,6 +55,8 @@ def scoreboard(dak,ShowPlayerFoul=False,FullConsoleDetails = False):
   # Load setup data
   setupdata = json.load(open("scorebug-setup.json"))
 
+
+
   HomeTeamName = setupdata["HomeTeamName"]
   HomeTeamRank = setupdata["HomeTeamRank"]
   HomeTeamColor = setupdata["HomeTeamColor"]
@@ -65,6 +68,11 @@ def scoreboard(dak,ShowPlayerFoul=False,FullConsoleDetails = False):
   Venue = setupdata["Venue"]
   ClockBackgroundColor = setupdata["ClockBackgroundColor"]
   NetworkLogo = setupdata["NetworkLogo"]
+  UseRoster = setupdata["UseRoster"]
+
+  if UseRoster:
+    # Load Roster Data
+    roster = json.load(open("rosters.json"))
 
   # Draw Background
   img1 = Image.new('RGBA',(1400, 120))
@@ -75,20 +83,20 @@ def scoreboard(dak,ShowPlayerFoul=False,FullConsoleDetails = False):
   drawbg.rectangle(((0, 97), (1299, 119)), fill=TimeOutBackgroundColor)    # Timeout background
 
   # Import Transparent Background
-  img2 = Image.open('Images/cctv.png')
+  img2 = Image.open('Images\advanced.png')
 
   # Import Logos
   # Away Team Logo
   imgName = re.sub('[^0-9a-zA-Z]+', '', AwayTeamName)
-  awayImg = Image.open("Logos/" + imgName + ".png")
+  awayImg = Image.open('Logos\\' + imgName + ".png")
   img2.paste(awayImg,(0,40))
   # Away Team Logo
   imgName = re.sub('[^0-9a-zA-Z]+', '', HomeTeamName)
-  homeImg = Image.open("Logos/" + imgName + ".png")
+  homeImg = Image.open("Logos\\" + imgName + ".png")
   img2.paste(homeImg,(500,40))
   # Network Logo
-  logoImg = Image.open("Logos/"+NetworkLogo)
-  img2.paste(logoImg,(1300,40))
+  logoImg = Image.open("Logos\\"+NetworkLogo)
+  img2.paste(logoImg,(1310,40))
 
   # Composite the two background images
   image = Image.new('RGBA',(1380, 120))
@@ -96,16 +104,17 @@ def scoreboard(dak,ShowPlayerFoul=False,FullConsoleDetails = False):
   draw = ImageDraw.Draw(image)
 
   # Define Fonts
-  font_TeamName = ImageFont.truetype('Fonts/'+'AvenirNextCondensed-DemiBold.ttf',36)
-  font_Rank = ImageFont.truetype('Fonts/'+'AvenirNextCondensed-Medium.ttf',24)
-  font_Score = ImageFont.truetype('Fonts/'+'AvenirNextCondensed-DemiBold.ttf',46)
-  font_clock = ImageFont.truetype('Fonts/'+'AvenirNextCondensed-DemiBold.ttf',40)
-  font_gameClock = ImageFont.truetype('Fonts/'+'AvenirNextCondensed-DemiBold.ttf',46)
-  font_venue = ImageFont.truetype('Fonts/'+'AvenirNext-Medium.ttf',20)
-  font_TO = ImageFont.truetype('Fonts/'+'AvenirNext-Heavy.ttf',60)
-  font_fouls = ImageFont.truetype('Fonts/'+'AvenirNextCondensed-DemiBold.ttf',18)
-  font_poss = ImageFont.truetype('Fonts/'+'AvenirNextCondensed-DemiBold.ttf',18)
-  font_toclock = ImageFont.truetype('Fonts/'+'AvenirNextCondensed-DemiBold.ttf',18)
+  font_TeamName = ImageFont.truetype('Fonts\\'+'AvenirNextCondensed-DemiBold.ttf',36)
+  font_Rank = ImageFont.truetype('Fonts\\'+'AvenirNextCondensed-Medium.ttf',24)
+  font_Score = ImageFont.truetype('Fonts\\'+'AvenirNextCondensed-DemiBold.ttf',46)
+  font_clock = ImageFont.truetype('Fonts\\'+'AvenirNextCondensed-DemiBold.ttf',40)
+  font_gameClock = ImageFont.truetype('Fonts\\'+'AvenirNextCondensed-DemiBold.ttf',46)
+  font_venue = ImageFont.truetype('Fonts\\'+'AvenirNext-Medium.ttf',20)
+  font_TO = ImageFont.truetype('Fonts\\'+'AvenirNext-Heavy.ttf',60)
+  font_fouls = ImageFont.truetype('Fonts\\'+'AvenirNextCondensed-DemiBold.ttf',18)
+  font_poss = ImageFont.truetype('Fonts\\'+'AvenirNextCondensed-DemiBold.ttf',18)
+  font_toclock = ImageFont.truetype('Fonts\\'+'AvenirNextCondensed-DemiBold.ttf',18)
+  font_PlayerFoul = ImageFont.truetype('Fonts\\'+'AvenirNextCondensed-Medium.ttf',22)
 
   # ----------------------------
   # Away Team
@@ -228,9 +237,69 @@ def scoreboard(dak,ShowPlayerFoul=False,FullConsoleDetails = False):
   draw.text(xy=(xpos,42),text=ShotClock,fill=ShotClockColor,font=font_clock)      
 
 
-  # Player Foul Display
-  if ShowPlayerFoul:
-    draw.rectangle(((0, 0), (200, 39)), fill=BonusColor)
+  print("-----------")
+  print(HomePlayerFoulPoints +" | "+config.HomeLastPlayerFoul)
+  print(AwayPlayerFoulPoints +" | "+config.AwayLastPlayerFoul)
+  print("-----------")
+
+  # Home Player Foul Display
+  if config.HomeLastPlayerFoul != HomePlayerFoulPoints:
+    config.HomeLastPlayerFoul = HomePlayerFoulPoints
+    config.HomePlayerFoulClockStart = time.clock()
+    print("New Home Foul :" + HomePlayerFoulPoints)
+    
+  if time.clock() < config.HomePlayerFoulClockStart + 10:
+      HomeFouls = HomePlayerFoulPoints.split("-")
+      TmpNum = HomeFouls[0].strip()
+      TmpFoulCount = HomeFouls[1].strip()
+      try:
+        dispString = TmpNum + "  " +roster['home'][TmpNum]
+      except:
+        dispString = TmpNum + "  " +HomeTeamName.upper()
+  
+      draw.rectangle(((600, 5), (659, 34)), fill="#000000")
+      draw.rectangle(((660, 5), (999, 34)), fill="#444444")
+      draw.text(xy=(609,6),text="Foul".upper(),fill=BonusColor,font=font_PlayerFoul)
+      draw.text(xy=(669,6),text=dispString.upper(),fill="#FFFFFF",font=font_PlayerFoul)
+
+      w, h = draw.textsize(dispString.upper(),font_PlayerFoul)
+      for x in range(int(TmpFoulCount)):
+        draw.rectangle( ( (680 + w + (15*x), 15), (689+w + (15*x), 24) ), fill=BonusColor)
+        print("foul")
+
+
+  # Away Player Foul Display
+  if config.AwayLastPlayerFoul != AwayPlayerFoulPoints:
+    config.AwayLastPlayerFoul = AwayPlayerFoulPoints
+    config.AwayPlayerFoulClockStart = time.clock()
+    print("New Away Foul :" + AwayPlayerFoulPoints)
+    
+  if time.clock() < config.AwayPlayerFoulClockStart + 10:
+      AwayFouls = AwayPlayerFoulPoints.split("-")
+      TmpNum = AwayFouls[0].strip()
+      TmpFoulCount = AwayFouls[1].strip()
+      try:
+        dispString = TmpNum + "  " +roster['away'][TmpNum]
+      except:
+        dispString = TmpNum + "  " +AwayTeamName.upper()
+  
+      draw.rectangle(((100, 5), (159, 34)), fill="#000000")
+      draw.rectangle(((160, 5), (499, 34)), fill="#444444")
+      draw.text(xy=(109,6),text="Foul".upper(),fill=BonusColor,font=font_PlayerFoul)
+      draw.text(xy=(169,6),text=dispString.upper(),fill="#FFFFFF",font=font_PlayerFoul)
+
+      w, h = draw.textsize(dispString.upper(),font_PlayerFoul)
+      for x in range(int(TmpFoulCount)):
+        draw.rectangle( ( (180 + w + (15*x), 15), (189+w + (15*x), 24) ), fill=BonusColor)
+        print("foul")
+
+
+
+
+
+
+
+    
         
   try:
       image.save("scorebug.png","PNG")
@@ -238,22 +307,6 @@ def scoreboard(dak,ShowPlayerFoul=False,FullConsoleDetails = False):
       print("Error Saving")
 
 
-
-  if FullConsoleDetails:
-      print("\n\n\n")
-      print("_______________________________________________________________")
-      print("Clock:          " + Clock)
-      print("Shot Clock:     " + ShotClock)
-      print("Time Out Clock: " + TimeOutClock)
-      print("Period:         " + Period)
-      print("Teams           | " + AwayTeamName.ljust(20) + "| "+ HomeTeamName)
-      print("Score           | " + AwayTeamScore.ljust(20) + "| "+ HomeTeamScore)
-      print("Time Outs L     | " + str(AwayTOL).ljust(20) + "| "+ str(HomeTOL))
-      print("Time Out        | " + AwayTimeOut.ljust(20) + "| "+ HomeTimeOut)
-      print("Fouls           | " + AwayFouls.strip().ljust(20) + "| "+ HomeFouls.strip())
-      print("Bounus          | " + AwayBonus.ljust(20) + "| "+ HomeBonus)
-      print("Possesion       | " + AwayPossession.ljust(20) + "| "+ HomePossession)
-  else:
-      print(Clock)
+  print(Clock)
 
   return ''
