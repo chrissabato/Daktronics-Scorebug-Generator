@@ -244,7 +244,7 @@ def scoreboard(dak):
   if config.HomeLastPlayerFoul != HomePlayerFoulPoints:
     config.HomeLastPlayerFoul = HomePlayerFoulPoints
     config.HomePlayerFoulClockStart = time.clock()
-    print("New Home Foul :" + HomePlayerFoulPoints)
+    print("New Home Foul:" + HomePlayerFoulPoints)
     
   if time.clock() < config.HomePlayerFoulClockStart + 10 and HomePlayerFoulPoints.strip() != '' :
       #print("Show Home Foul")
@@ -271,7 +271,7 @@ def scoreboard(dak):
   if config.AwayLastPlayerFoul != AwayPlayerFoulPoints:
     config.AwayLastPlayerFoul = AwayPlayerFoulPoints
     config.AwayPlayerFoulClockStart = time.clock()
-    print("New Away Foul :" + AwayPlayerFoulPoints)
+    print("New Away Foul:" + AwayPlayerFoulPoints)
     
   if time.clock() < config.AwayPlayerFoulClockStart + 10 and AwayPlayerFoulPoints.strip() != '':
       #print("Show Away Foul")

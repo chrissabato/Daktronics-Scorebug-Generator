@@ -83,7 +83,7 @@ def scoreboard(dak):
     font_Rank = ImageFont.truetype('Fonts\\Arial Narrow Bold.ttf',36)
     font_Score = ImageFont.truetype('Fonts\\Arial Narrow Bold.ttf',70)
     font_Clock = ImageFont.truetype('Fonts\\Arial Narrow Bold.ttf',36)
-    font_TimeOuts = ImageFont.truetype(+'Fonts\\Arial Black.ttf',40)
+    font_TimeOuts = ImageFont.truetype('Fonts\\Arial Black.ttf',40)
     font_Period = ImageFont.truetype('Fonts\\Arial Narrow Bold.ttf',24)
 
     # ----------------------------

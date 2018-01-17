@@ -5,7 +5,6 @@ from default import scoreboard
 
 
 
-
 dak = {} #define dak to take the sample data
 
 # ************************************************************************************
