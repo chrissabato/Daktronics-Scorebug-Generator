@@ -80,10 +80,10 @@ def scoreboard(dak):
   drawbg.rectangle(((100, 40), (499, 96)), fill=AwayTeamColor)             # Away team background
   drawbg.rectangle(((600, 40), (999, 96)), fill=HomeTeamColor)             # Home team background
   drawbg.rectangle(((1000, 40), (1299, 96)), fill=ClockBackgroundColor)              # Clock background
-  drawbg.rectangle(((0, 97), (1299, 119)), fill=TimeOutBackgroundColor)    # Timeout background
+  #drawbg.rectangle(((0, 97), (1299, 119)), fill=TimeOutBackgroundColor)    # Timeout background
 
   # Import Transparent Background
-  img2 = Image.open('Images\advanced.png')
+  img2 = Image.open('Images\\advanced.png')
 
   # Import Logos
   # Away Team Logo
@@ -237,10 +237,8 @@ def scoreboard(dak):
   draw.text(xy=(xpos,42),text=ShotClock,fill=ShotClockColor,font=font_clock)      
 
 
-  print("-----------")
-  print(HomePlayerFoulPoints +" | "+config.HomeLastPlayerFoul)
-  print(AwayPlayerFoulPoints +" | "+config.AwayLastPlayerFoul)
-  print("-----------")
+
+
 
   # Home Player Foul Display
   if config.HomeLastPlayerFoul != HomePlayerFoulPoints:
@@ -248,7 +246,8 @@ def scoreboard(dak):
     config.HomePlayerFoulClockStart = time.clock()
     print("New Home Foul :" + HomePlayerFoulPoints)
     
-  if time.clock() < config.HomePlayerFoulClockStart + 10:
+  if time.clock() < config.HomePlayerFoulClockStart + 10 and HomePlayerFoulPoints.strip() != '' :
+      #print("Show Home Foul")
       HomeFouls = HomePlayerFoulPoints.split("-")
       TmpNum = HomeFouls[0].strip()
       TmpFoulCount = HomeFouls[1].strip()
@@ -265,7 +264,7 @@ def scoreboard(dak):
       w, h = draw.textsize(dispString.upper(),font_PlayerFoul)
       for x in range(int(TmpFoulCount)):
         draw.rectangle( ( (680 + w + (15*x), 15), (689+w + (15*x), 24) ), fill=BonusColor)
-        print("foul")
+        
 
 
   # Away Player Foul Display
@@ -274,7 +273,8 @@ def scoreboard(dak):
     config.AwayPlayerFoulClockStart = time.clock()
     print("New Away Foul :" + AwayPlayerFoulPoints)
     
-  if time.clock() < config.AwayPlayerFoulClockStart + 10:
+  if time.clock() < config.AwayPlayerFoulClockStart + 10 and AwayPlayerFoulPoints.strip() != '':
+      #print("Show Away Foul")
       AwayFouls = AwayPlayerFoulPoints.split("-")
       TmpNum = AwayFouls[0].strip()
       TmpFoulCount = AwayFouls[1].strip()
@@ -291,7 +291,7 @@ def scoreboard(dak):
       w, h = draw.textsize(dispString.upper(),font_PlayerFoul)
       for x in range(int(TmpFoulCount)):
         draw.rectangle( ( (180 + w + (15*x), 15), (189+w + (15*x), 24) ), fill=BonusColor)
-        print("foul")
+        
 
 
 

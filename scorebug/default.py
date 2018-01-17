@@ -6,7 +6,7 @@
 import json,re 
 from PIL import Image, ImageDraw, ImageFont
 
-def scoreboard(dak,FolderLoc, FullConsoleDetails = False):
+def scoreboard(dak):
 
     # ****************************
     # Dynampic PNG Variables
@@ -47,7 +47,7 @@ def scoreboard(dak,FolderLoc, FullConsoleDetails = False):
     ClockColor="#ccff00"
 
     # Load setup data
-    setupdata = json.load(open(FolderLoc+"scorebug-setup.json"))
+    setupdata = json.load(open("scorebug-setup.json"))
 
     HomeTeamName=setupdata["HomeTeamName"]
     HomeTeamRank=setupdata["HomeTeamRank"]
@@ -70,7 +70,7 @@ def scoreboard(dak,FolderLoc, FullConsoleDetails = False):
     drawbg.rectangle(((640, 0), (1139, 79)), fill=HomeTeamColor)
 
     # Import Transparent Background
-    img2 = Image.open(FolderLoc+'Images\\default.png')
+    img2 = Image.open('Images\\default.png')
 
     # Composite the two background images
     image = Image.new('RGBA',(1100, 80))
@@ -79,12 +79,12 @@ def scoreboard(dak,FolderLoc, FullConsoleDetails = False):
     draw = ImageDraw.Draw(image)
 
     # Define Fonts
-    font_TeamName = ImageFont.truetype(FolderLoc+'Fonts\\Arial Narrow Bold.ttf',38)
-    font_Rank = ImageFont.truetype(FolderLoc+'Fonts\\Arial Narrow Bold.ttf',36)
-    font_Score = ImageFont.truetype(FolderLoc+'Fonts\\Arial Narrow Bold.ttf',70)
-    font_Clock = ImageFont.truetype(FolderLoc+'Fonts\\Arial Narrow Bold.ttf',36)
-    font_TimeOuts = ImageFont.truetype(FolderLoc+'Fonts\\Arial Black.ttf',40)
-    font_Period = ImageFont.truetype(FolderLoc+'Fonts\\Arial Narrow Bold.ttf',24)
+    font_TeamName = ImageFont.truetype('Fonts\\Arial Narrow Bold.ttf',38)
+    font_Rank = ImageFont.truetype('Fonts\\Arial Narrow Bold.ttf',36)
+    font_Score = ImageFont.truetype('Fonts\\Arial Narrow Bold.ttf',70)
+    font_Clock = ImageFont.truetype('Fonts\\Arial Narrow Bold.ttf',36)
+    font_TimeOuts = ImageFont.truetype(+'Fonts\\Arial Black.ttf',40)
+    font_Period = ImageFont.truetype('Fonts\\Arial Narrow Bold.ttf',24)
 
     # ----------------------------
     # Away Team
@@ -160,27 +160,10 @@ def scoreboard(dak,FolderLoc, FullConsoleDetails = False):
     draw.text(xy=(xpos,50),text=ShotClock,fill=ShotClockColor,font=font_Period)      
 
     try:
-        image.save(FolderLoc+"scorebug.png","PNG")
+        image.save("scorebug.png","PNG")
     except:
         print("Error Saving")
 
-
-
-    if FullConsoleDetails:
-        print("\n\n\n")
-        print("_______________________________________________________________")
-        print("Clock:          " + Clock)
-        print("Shot Clock:     " + ShotClock)
-        print("Time Out Clock: " + TimeOutClock)
-        print("Period:         " + Period)
-        print("Teams           | " + AwayTeamName.ljust(20) + "| "+ HomeTeamName)
-        print("Score           | " + AwayTeamScore.ljust(20) + "| "+ HomeTeamScore)
-        print("Time Outs L     | " + str(AwayTOL).ljust(20) + "| "+ str(HomeTOL))
-        print("Time Out        | " + AwayTimeOut.ljust(20) + "| "+ HomeTimeOut)
-        print("Fouls           | " + AwayFouls.strip().ljust(20) + "| "+ HomeFouls.strip())
-        print("Bounus          | " + AwayBonus.ljust(20) + "| "+ HomeBonus)
-        print("Possesion       | " + AwayPossession.ljust(20) + "| "+ HomePossession)
-    else:
         print(Clock)
 
     return ''

@@ -6,9 +6,9 @@
     "HomeTeamRank": "",
     "HomeTeamColor": "#791716",
     "HomeTeamColor2": "#c0ac7e",
-    "AwayTeamName": "Trinity",
+    "AwayTeamName": "Pacific",
     "AwayTeamRank": "",
-    "AwayTeamColor": "#bbbbbb",
-    "AwayTeamColor2": "#90292b",
+    "AwayTeamColor": "#b4153a",
+    "AwayTeamColor2": "#000000",
     "UseRoster":"True"
 }
