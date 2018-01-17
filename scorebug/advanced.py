@@ -43,7 +43,7 @@ def scoreboard(dak):
   font_Color2 = "#000000"
   TimeOutAvailableColor="#272727"
   TimeOutUsedColor="#ffffff"
-  TimeOutClockColor="#483281"
+  TimeOutClockColor="#006600"
   TimeOutClockFontColor="#ffffff"
   TimeOutBackgroundColor="#9999cc"
   BonusColor="#ccff00"
@@ -70,9 +70,7 @@ def scoreboard(dak):
   NetworkLogo = setupdata["NetworkLogo"]
   UseRoster = setupdata["UseRoster"]
 
-  if UseRoster:
-    # Load Roster Data
-    roster = json.load(open("rosters.json"))
+
 
   # Draw Background
   img1 = Image.new('RGBA',(1400, 120))
@@ -239,58 +237,62 @@ def scoreboard(dak):
 
 
 
+  if UseRoster == "1":
+    # Load Roster Data
+    print("using roster Foul info:"+UseRoster)
+    roster = json.load(open("rosters.json"))
 
-  # Home Player Foul Display
-  if config.HomeLastPlayerFoul != HomePlayerFoulPoints:
-    config.HomeLastPlayerFoul = HomePlayerFoulPoints
-    config.HomePlayerFoulClockStart = time.clock()
-    print("New Home Foul:" + HomePlayerFoulPoints)
+    # Home Player Foul Display
+    if config.HomeLastPlayerFoul != HomePlayerFoulPoints:
+      config.HomeLastPlayerFoul = HomePlayerFoulPoints
+      config.HomePlayerFoulClockStart = time.clock()
+      print("New Home Foul:" + HomePlayerFoulPoints)
+      
+    if time.clock() < config.HomePlayerFoulClockStart + 10 and HomePlayerFoulPoints.strip() != '' :
+        #print("Show Home Foul")
+        HomeFouls = HomePlayerFoulPoints.split("-")
+        TmpNum = HomeFouls[0].strip()
+        TmpFoulCount = HomeFouls[1].strip()
+        try:
+          dispString = TmpNum + "  " +roster['home'][TmpNum]
+        except:
+          dispString = TmpNum + "  " +HomeTeamName.upper()
     
-  if time.clock() < config.HomePlayerFoulClockStart + 10 and HomePlayerFoulPoints.strip() != '' :
-      #print("Show Home Foul")
-      HomeFouls = HomePlayerFoulPoints.split("-")
-      TmpNum = HomeFouls[0].strip()
-      TmpFoulCount = HomeFouls[1].strip()
-      try:
-        dispString = TmpNum + "  " +roster['home'][TmpNum]
-      except:
-        dispString = TmpNum + "  " +HomeTeamName.upper()
-  
-      draw.rectangle(((600, 5), (659, 34)), fill="#000000")
-      draw.rectangle(((660, 5), (999, 34)), fill="#444444")
-      draw.text(xy=(609,6),text="Foul".upper(),fill=BonusColor,font=font_PlayerFoul)
-      draw.text(xy=(669,6),text=dispString.upper(),fill="#FFFFFF",font=font_PlayerFoul)
+        draw.rectangle(((600, 5), (659, 34)), fill="#000000")
+        draw.rectangle(((660, 5), (999, 34)), fill="#444444")
+        draw.text(xy=(609,6),text="Foul".upper(),fill=BonusColor,font=font_PlayerFoul)
+        draw.text(xy=(669,6),text=dispString.upper(),fill="#FFFFFF",font=font_PlayerFoul)
 
-      w, h = draw.textsize(dispString.upper(),font_PlayerFoul)
-      for x in range(int(TmpFoulCount)):
-        draw.rectangle( ( (680 + w + (15*x), 15), (689+w + (15*x), 24) ), fill=BonusColor)
-        
+        w, h = draw.textsize(dispString.upper(),font_PlayerFoul)
+        for x in range(int(TmpFoulCount)):
+          draw.rectangle( ( (680 + w + (15*x), 15), (689+w + (15*x), 24) ), fill=BonusColor)
+          
 
 
-  # Away Player Foul Display
-  if config.AwayLastPlayerFoul != AwayPlayerFoulPoints:
-    config.AwayLastPlayerFoul = AwayPlayerFoulPoints
-    config.AwayPlayerFoulClockStart = time.clock()
-    print("New Away Foul:" + AwayPlayerFoulPoints)
+    # Away Player Foul Display
+    if config.AwayLastPlayerFoul != AwayPlayerFoulPoints:
+      config.AwayLastPlayerFoul = AwayPlayerFoulPoints
+      config.AwayPlayerFoulClockStart = time.clock()
+      print("New Away Foul:" + AwayPlayerFoulPoints)
+      
+    if time.clock() < config.AwayPlayerFoulClockStart + 10 and AwayPlayerFoulPoints.strip() != '':
+        #print("Show Away Foul")
+        AwayFouls = AwayPlayerFoulPoints.split("-")
+        TmpNum = AwayFouls[0].strip()
+        TmpFoulCount = AwayFouls[1].strip()
+        try:
+          dispString = TmpNum + "  " +roster['away'][TmpNum]
+        except:
+          dispString = TmpNum + "  " +AwayTeamName.upper()
     
-  if time.clock() < config.AwayPlayerFoulClockStart + 10 and AwayPlayerFoulPoints.strip() != '':
-      #print("Show Away Foul")
-      AwayFouls = AwayPlayerFoulPoints.split("-")
-      TmpNum = AwayFouls[0].strip()
-      TmpFoulCount = AwayFouls[1].strip()
-      try:
-        dispString = TmpNum + "  " +roster['away'][TmpNum]
-      except:
-        dispString = TmpNum + "  " +AwayTeamName.upper()
-  
-      draw.rectangle(((100, 5), (159, 34)), fill="#000000")
-      draw.rectangle(((160, 5), (499, 34)), fill="#444444")
-      draw.text(xy=(109,6),text="Foul".upper(),fill=BonusColor,font=font_PlayerFoul)
-      draw.text(xy=(169,6),text=dispString.upper(),fill="#FFFFFF",font=font_PlayerFoul)
+        draw.rectangle(((100, 5), (159, 34)), fill="#000000")
+        draw.rectangle(((160, 5), (499, 34)), fill="#444444")
+        draw.text(xy=(109,6),text="Foul".upper(),fill=BonusColor,font=font_PlayerFoul)
+        draw.text(xy=(169,6),text=dispString.upper(),fill="#FFFFFF",font=font_PlayerFoul)
 
-      w, h = draw.textsize(dispString.upper(),font_PlayerFoul)
-      for x in range(int(TmpFoulCount)):
-        draw.rectangle( ( (180 + w + (15*x), 15), (189+w + (15*x), 24) ), fill=BonusColor)
+        w, h = draw.textsize(dispString.upper(),font_PlayerFoul)
+        for x in range(int(TmpFoulCount)):
+          draw.rectangle( ( (180 + w + (15*x), 15), (189+w + (15*x), 24) ), fill=BonusColor)
         
 
 
